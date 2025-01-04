@@ -34,6 +34,7 @@ const authWare = createMiddleware(async (c, next) => {
 });
 
 // session authware middleware: json
+const authWareJson = createMiddleware(async (c, next) => { });
 
 app.use('/', authWare);
 app.use('/scan', authWare);
@@ -124,6 +125,31 @@ app.post('/login', async (c) => {
 	} else {
 		return c.render(renderLoginPage({ wrongCred: true }));
 	}
+});
+
+// ogin : json
+app.post('/json/login', async (c) => {
+	const { email, password } = await c.req.json();
+
+	const isMatched = email === c.env.USER_EMAIL && password === c.env.USER_PASSWORD;
+
+	if (isMatched) {
+		const session = await crypto.randomUUID();
+
+		const { result } = await c.env.DB.prepare(`UPDATE Sessions SET SessionId = ? WHERE UserEmail = ?`).bind(session, email).all();
+
+		return c.json({
+			info: 'login_success',
+			session: session,
+		});
+	}
+
+	return c.json(
+		{
+			info: 'wrong_creds',
+		},
+		401,
+	);
 });
 
 app.get('/scan', async (c) => {
