@@ -33,6 +33,8 @@ const authWare = createMiddleware(async (c, next) => {
 	await next();
 });
 
+// session authware middleware: json
+
 app.use('/', authWare);
 app.use('/scan', authWare);
 app.use('/db_manager', authWare);
@@ -68,6 +70,37 @@ app.get('/', async (c) => {
 	}
 
 	return c.render(renderHomepage({ tokens: results }));
+});
+
+// list all tokens: json api
+app.get('/json', async (c) => {
+	// get all the tokens from the database
+	const { results: tokens } = await c.env.DB.prepare(`SELECT * FROM Tokens`).all();
+
+	// iterate over the tokens and generate the totp
+	let results = [];
+	for (let token of tokens) {
+		const secret = await decrypt({
+			base64Combined: token.EncryptedSecret,
+			key: c.env.ENCRYPTION_KEY,
+		});
+
+		// generate totp
+		const otp = await generateTotp({
+			algorithm: token.Algorithm,
+			digits: token.Digits,
+			period: token.TimeStep,
+			secret,
+		});
+
+		results.push({
+			issuer: token.Issuer,
+			otp,
+			timeStep: token.TimeStep,
+		});
+	}
+
+	return c.json(results);
 });
 
 app.get('/login', (c) => {
