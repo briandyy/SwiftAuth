@@ -560,9 +560,6 @@ PUT /admin/token/:id
 3. **Get secrets** from your service providers
 4. **Test each token** before removing from old app
 
-## 🤝 Contributing
-
-We welcome contributions! Please read our [Contributing Guide](CONTRIBUTING.md) for details.
 
 ### Development Setup
 ```bash
@@ -592,9 +589,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Support
 
 - **Documentation**: Check this README first
-- **Issues**: Report bugs on [GitHub Issues](https://github.com/yourusername/swiftauth/issues)
+- **Issues**: Report bugs on [GitHub Issues](https://github.com/briandyy/swiftauth/issues)
 - **Security**: Report vulnerabilities privately
-- **Community**: Join our [Discord](https://discord.gg/swiftauth)
+- **Community**: Join our [Discord](https://discord.gg/)
 
 ---
 
