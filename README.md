@@ -593,6 +593,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Security**: Report vulnerabilities privately
 - **Community**: Join our [Discord](https://discord.gg/)
 
+## References:
+
+1. Google Authenticator wiki: https://github.com/google/google-authenticator/wiki/Key-Uri-Format
+2. RFC 6238: https://datatracker.ietf.org/doc/html/rfc6238
+3. EdgeAuth: https://github.com/alanJames00/EdgeAuth
+
 ---
 
 <div align="center">
