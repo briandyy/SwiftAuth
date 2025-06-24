@@ -591,7 +591,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Documentation**: Check this README first
 - **Issues**: Report bugs on [GitHub Issues](https://github.com/briandyy/swiftauth/issues)
 - **Security**: Report vulnerabilities privately
-- **Community**: Join our [Discord](https://discord.gg/)
+- **Community**: Join our [Discord](https://discord.gg/Sk8KQy5n2U)
 
 ## References:
 
