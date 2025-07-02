@@ -249,7 +249,10 @@ function renderHomepage({ tokens }) {
                             <span class="text-white font-bold text-sm sm:text-lg">${token.issuer.charAt(0).toUpperCase()}</span>
                         </div>
                         <div>
-                            <h3 class="font-semibold text-gray-800 dark:text-white text-sm sm:text-lg">${token.issuer}</h3>
+                            <h3 class="font-semibold text-gray-800 dark:text-white text-sm sm:text-lg">
+                            ${token.issuer}
+                            ${token.label ? `<span class="ml-2 text-xs text-gray-500 dark:text-gray-400 font-normal">(${token.label})</span>` : ''}
+                            </h3>
                             <p class="text-xs text-gray-500 dark:text-gray-400">TOTP • ${token.period || 30}s</p>
                         </div>
                     </div>
