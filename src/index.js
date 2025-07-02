@@ -333,7 +333,7 @@ app.post('/api/token/save', async (c) => {
 		const { result } = await c.env.DB.prepare(
 			`UPDATE Tokens SET TimeStep = ?, EncryptedSecret = ?, Algorithm = ?, Digits = ? WHERE Issuer = ? AND Label = ?`,
 		)
-			.bind(period, encryptedSecret, algorithm, digits, issuer)
+			.bind(period, encryptedSecret, algorithm, digits, issuer, label)
 			.all();
 		return c.json({
 			info: 'Issuer and Account combo already exists, updated the token.',

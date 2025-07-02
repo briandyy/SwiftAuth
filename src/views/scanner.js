@@ -522,6 +522,10 @@ export default function renderScannerPage() {
                     <p class="font-medium text-gray-900 dark:text-white">\${keyURIObj.issuer}</p>
                 </div>
                 <div class="mb-4">
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Account:</p>
+                    <p class="font-medium text-gray-900 dark:text-white">\${keyURIObj.label}</p>
+                </div>
+                <div class="mb-4">
                     <p class="text-sm text-gray-600 dark:text-gray-400">Period:</p>
                     <p class="font-medium text-gray-900 dark:text-white">\${keyURIObj.period} seconds</p>
                 </div>
