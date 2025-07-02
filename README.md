@@ -79,7 +79,7 @@ node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
 
 ### 4. Create Database
 ```bash
-# Create D1 database (local and remote)
+# Create D1 database (remote)
 npx wrangler d1 create swiftauth-db
 
 # Copy the database ID to wrangler.toml under [[d1_databases]]
