@@ -164,6 +164,7 @@ app.use('/api/tokens/refresh', authWare);
 app.use('/api/db/dump', authWare);
 app.use('/admin', adminWare);
 app.use('/admin/*', adminWare);
+app.use('/logout', authWare);
 
 app.get('/', async (c) => {
 	// get all the tokens from the database
@@ -225,6 +226,12 @@ app.post('/login', async (c) => {
 	} else {
 		return c.render(renderLoginPage({ wrongCred: true }));
 	}
+});
+
+app.post('/logout', async (c) => {
+    // delete the session cookie
+    await deleteCookie(c, 'session');
+    return c.render(renderLoginPage({ wrongCred: true }));
 });
 
 app.post('/register', async (c) => {

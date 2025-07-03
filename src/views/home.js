@@ -125,7 +125,6 @@ function renderHomepage({ tokens }) {
                 
                 /* Touch-friendly button sizes */
                 button {
-                    min-height: 44px;
                     padding: 0.75rem 1rem;
                 }
                 
