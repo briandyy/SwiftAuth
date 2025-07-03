@@ -164,6 +164,7 @@ app.use('/api/tokens/refresh', authWare);
 app.use('/api/db/dump', authWare);
 app.use('/admin', adminWare);
 app.use('/admin/*', adminWare);
+app.use('/logout', authWare);
 
 app.get('/', async (c) => {
 	// get all the tokens from the database
@@ -193,6 +194,7 @@ app.get('/', async (c) => {
 		results.push({
 			id: token.Id,
 			issuer: token.Issuer,
+            label: token.Label,
 			otp,
 			timeStep: remainingTime,
 			period: token.TimeStep,
@@ -224,6 +226,12 @@ app.post('/login', async (c) => {
 	} else {
 		return c.render(renderLoginPage({ wrongCred: true }));
 	}
+});
+
+app.post('/logout', async (c) => {
+    // delete the session cookie
+    await deleteCookie(c, 'session');
+    return c.render(renderLoginPage({ wrongCred: true }));
 });
 
 app.post('/register', async (c) => {
@@ -327,23 +335,23 @@ app.post('/api/token/save', async (c) => {
 	});
 
 	// check if the issuer already exist in the database, then update the token
-	const { results: issuerExists } = await c.env.DB.prepare(`SELECT * FROM Tokens WHERE Issuer = ?`).bind(issuer).all();
+	const { results: issuerExists } = await c.env.DB.prepare(`SELECT * FROM Tokens WHERE Issuer = ? AND Label = ?`).bind(issuer, label).all();
 	if (issuerExists.length > 0) {
 		const { result } = await c.env.DB.prepare(
-			`UPDATE Tokens SET TimeStep = ?, EncryptedSecret = ?, Algorithm = ?, Digits = ? WHERE Issuer = ?`,
+			`UPDATE Tokens SET TimeStep = ?, EncryptedSecret = ?, Algorithm = ?, Digits = ? WHERE Issuer = ? AND Label = ?`,
 		)
-			.bind(period, encryptedSecret, algorithm, digits, issuer)
+			.bind(period, encryptedSecret, algorithm, digits, issuer, label)
 			.all();
 		return c.json({
-			info: 'Issuer already exists, updated the token.',
+			info: 'Issuer and Account combo already exists, updated the token.',
 		});
 	}
 
 	// insert the token to the database
 	const { result } = await c.env.DB.prepare(
-		`INSERT INTO Tokens (Issuer, TimeStep, EncryptedSecret, Algorithm, Digits) VALUES (?, ?, ?, ?, ?)`,
+		`INSERT INTO Tokens (Issuer, Label, TimeStep, EncryptedSecret, Algorithm, Digits) VALUES (?, ?, ?, ?, ?, ?)`,
 	)
-		.bind(issuer, period, encryptedSecret, algorithm, digits)
+		.bind(issuer, label, period, encryptedSecret, algorithm, digits)
 		.all();
 	return c.json({
 		info: 'Token saved successfully.',

@@ -14,6 +14,13 @@ export default async function generateTotp({ algorithm, secret, digits, period }
 	// Convert secret to uppercase for base32 decoding
 	secret = secret.toUpperCase();
 
+	// Ensure the secret is a valid base32 length
+	if (secret.length % 8 !== 0) {
+		// Add '=' character to make it a valid base32 length
+		const padding = 8 - (secret.length % 8);
+		secret += '='.repeat(padding);
+	}
+
 	const key = decodeBase32(secret);
 
 	// Generate HMAC using the secret and the time step
