@@ -412,7 +412,7 @@ app.delete('/admin/token/:id', async (c) => {
 // Admin API - Update token
 app.put('/admin/token/:id', async (c) => {
 	const id = c.req.param('id');
-	const { issuer, secret } = await c.req.json();
+	const { issuer, label, secret } = await c.req.json();
 	
 	try {
 		// Encrypt the new secret
@@ -422,8 +422,8 @@ app.put('/admin/token/:id', async (c) => {
 		});
 
 		await c.env.DB.prepare(
-			`UPDATE Tokens SET Issuer = ?, EncryptedSecret = ? WHERE Id = ?`
-		).bind(issuer, encryptedSecret, id).run();
+			`UPDATE Tokens SET Issuer = ?, Label = ?, EncryptedSecret = ? WHERE Id = ?`
+		).bind(issuer, label, encryptedSecret, id).run();
 
 		return c.json({ success: true });
 	} catch (error) {

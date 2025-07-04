@@ -165,7 +165,7 @@ function renderSettingsPage() {
                     <div class="space-y-4">
                         <div class="flex items-center justify-between">
                             <span class="text-gray-600 dark:text-gray-400">Version</span>
-                            <span class="font-medium text-gray-800 dark:text-white">1.0.0</span>
+                            <span class="font-medium text-gray-800 dark:text-white">1.0.2</span>
                         </div>
                         <div class="flex items-center justify-between">
                             <span class="text-gray-600 dark:text-gray-400">Developer</span>
