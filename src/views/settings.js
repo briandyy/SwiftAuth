@@ -197,7 +197,9 @@ function renderSettingsPage() {
                 logoutButton.addEventListener('click', async function() {
                     try {
                         await fetch('/logout', { method: 'POST', credentials: 'include' });
-                    } catch (e) {}
+                    } catch (e) {
+                        console.warn('Logout request failed, but proceeding with client-side cleanup');
+                    }
                     // Clear localStorage/sessionStorage
                     localStorage.clear();
                     sessionStorage.clear();
