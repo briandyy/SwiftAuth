@@ -11,6 +11,16 @@ export default async function generateTotp({ algorithm, secret, digits, period }
 	const timeView = new DataView(timeBuffer);
 	timeView.setUint32(4, time, false); // Write the time to the last 4 bytes (big-endian)
 
+	// Convert secret to uppercase for base32 decoding
+	secret = secret.toUpperCase();
+
+	// Ensure the secret is a valid base32 length
+	if (secret.length % 8 !== 0) {
+		// Add '=' character to make it a valid base32 length
+		const padding = 8 - (secret.length % 8);
+		secret += '='.repeat(padding);
+	}
+
 	const key = decodeBase32(secret);
 
 	// Generate HMAC using the secret and the time step

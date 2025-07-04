@@ -124,6 +124,7 @@ export default function renderAdminPage({ tokens = [] }) {
                     <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">                        <thead class="bg-gray-50 dark:bg-gray-700">
                             <tr>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Issuer</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Account</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Secret Key</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Algorithm</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Period</th>
@@ -143,7 +144,15 @@ export default function renderAdminPage({ tokens = [] }) {
                                             <div class="text-sm font-medium text-gray-900 dark:text-white">${token.Issuer}</div>
                                             <div class="text-sm text-gray-500 dark:text-gray-400">ID: ${token.Id}</div>
                                         </div>
-                                    </div>                                </td>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div>
+                                            <div class="text-sm font-medium text-gray-900 dark:text-white">${token.Label}</div>
+                                        </div>
+                                    </div>
+                                </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
                                         <code class="text-xs font-mono bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded border select-all" 
@@ -170,13 +179,13 @@ export default function renderAdminPage({ tokens = [] }) {
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">${token.Digits}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                     <div class="flex space-x-2">
-                                        <button onclick="editToken(${token.Id}, '${token.Issuer}')" 
+                                        <button onclick="editToken(${token.Id}, '${token.Issuer}', '${token.Label}')" 
                                             class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300 transition-colors duration-200">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                             </svg>
                                         </button>
-                                        <button onclick="deleteToken(${token.Id}, '${token.Issuer}')" 
+                                        <button onclick="deleteToken(${token.Id}, '${token.Issuer}', '${token.Label}')" 
                                             class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300 transition-colors duration-200">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
@@ -200,18 +209,18 @@ export default function renderAdminPage({ tokens = [] }) {
                                     <span class="text-white font-bold text-sm">${token.Issuer.charAt(0).toUpperCase()}</span>
                                 </div>
                                 <div>
-                                    <div class="text-base font-semibold text-gray-900 dark:text-white">${token.Issuer}</div>
+                                    <div class="text-base font-semibold text-gray-900 dark:text-white">${token.Issuer} - ${token.Label}</div>
                                     <div class="text-sm text-gray-500 dark:text-gray-400">ID: ${token.Id}</div>
                                 </div>
                             </div>
                             <div class="flex space-x-2">
-                                <button onclick="editToken(${token.Id}, '${token.Issuer}')" 
+                                <button onclick="editToken(${token.Id}, '${token.Issuer}', '${token.Label}')" 
                                     class="p-2 text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all duration-200">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                     </svg>
                                 </button>
-                                <button onclick="deleteToken(${token.Id}, '${token.Issuer}')" 
+                                <button onclick="deleteToken(${token.Id}, '${token.Issuer}', '${token.Label}')" 
                                     class="p-2 text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-all duration-200">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
@@ -272,6 +281,11 @@ export default function renderAdminPage({ tokens = [] }) {
                         <input type="text" id="editIssuer" name="issuer" required
                             class="w-full px-3 py-2.5 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white text-base">
                     </div>
+                    <div class="mb-4">
+                        <label for="editLabel" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Account Name</label>
+                        <input type="text" id="editLabel" name="label" required
+                            class="w-full px-3 py-2.5 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white text-base">
+                    </div>
                     <div class="mb-6">
                         <label for="editSecret" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Secret Key (Base32)</label>
                         <input type="text" id="editSecret" name="secret" required
@@ -299,9 +313,10 @@ export default function renderAdminPage({ tokens = [] }) {
                 window.darkModeManager.registerToggle(darkModeToggle);
             }
         });// Token management functions
-        window.editToken = function(id, issuer) {
+        window.editToken = function(id, issuer, label) {
             document.getElementById('editTokenId').value = id;
             document.getElementById('editIssuer').value = issuer;
+            document.getElementById('editLabel').value = label;
             document.getElementById('editSecret').value = '';
             document.getElementById('editModal').classList.remove('hidden');
         }
@@ -310,8 +325,8 @@ export default function renderAdminPage({ tokens = [] }) {
             document.getElementById('editModal').classList.add('hidden');
         }
 
-        window.deleteToken = function(id, issuer) {
-            if (confirm(\`Are you sure you want to delete the token for "\${issuer}"?\`)) {
+        window.deleteToken = function(id, issuer, label) {
+            if (confirm(\`Are you sure you want to delete the token Issuer: "\${issuer}" and Account: "\${label}" ?\`)) {
                 fetch('/admin/token/' + id, {
                     method: 'DELETE'
                 }).then(response => {
@@ -388,6 +403,7 @@ export default function renderAdminPage({ tokens = [] }) {
             
             const id = document.getElementById('editTokenId').value;
             const issuer = document.getElementById('editIssuer').value;
+            const label = document.getElementById('editLabel').value;
             const secret = document.getElementById('editSecret').value;
             
             fetch('/admin/token/' + id, {
@@ -395,7 +411,7 @@ export default function renderAdminPage({ tokens = [] }) {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ issuer, secret })
+                body: JSON.stringify({ issuer, label, secret })
             }).then(response => {
                 if (response.ok) {
                     location.reload();                } else {

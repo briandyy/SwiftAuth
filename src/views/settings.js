@@ -115,7 +115,15 @@ function renderSettingsPage() {
                                     <option value="15">15 minutes</option>
                                     <option value="30">30 minutes</option>
                                 </select>
-                            </div>                        </div>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex justify-start mt-4">
+                                <button id="logoutButton" class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2">
+                                    Lock now
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -157,7 +165,7 @@ function renderSettingsPage() {
                     <div class="space-y-4">
                         <div class="flex items-center justify-between">
                             <span class="text-gray-600 dark:text-gray-400">Version</span>
-                            <span class="font-medium text-gray-800 dark:text-white">1.0.0</span>
+                            <span class="font-medium text-gray-800 dark:text-white">1.0.2</span>
                         </div>
                         <div class="flex items-center justify-between">
                             <span class="text-gray-600 dark:text-gray-400">Developer</span>
@@ -182,7 +190,24 @@ function renderSettingsPage() {
 
         document.addEventListener('DOMContentLoaded', function() {            initDarkModeToggle();
             initSettingsHandlers();
-            loadSettings();        });
+            loadSettings();
+            // Log out button handler
+            const logoutButton = document.getElementById('logoutButton');
+            if (logoutButton) {
+                logoutButton.addEventListener('click', async function() {
+                    try {
+                        await fetch('/logout', { method: 'POST', credentials: 'include' });
+                    } catch (e) {
+                        console.warn('Logout request failed, but proceeding with client-side cleanup');
+                    }
+                    // Clear localStorage/sessionStorage
+                    localStorage.clear();
+                    sessionStorage.clear();
+                    // Redirect to login page
+                    window.location.href = '/?from=logout';
+                });
+            }
+        });
 
         // ===== COOKIE MANAGEMENT =====
         function setCookie(name, value, days = 365) {

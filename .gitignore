@@ -3,3 +3,5 @@ node_modules
 wrangler.toml
 .wrangler
 *.html
+package-lock.json
+pnpm-lock.yaml

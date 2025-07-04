@@ -79,12 +79,27 @@ node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
 
 ### 4. Create Database
 ```bash
-# Create D1 database
+# Create D1 database (remote)
 npx wrangler d1 create swiftauth-db
 
 # Copy the database ID to wrangler.toml under [[d1_databases]]
-# Then run database migrations
-npx wrangler d1 execute swiftauth-db --file=./src/schemas/schema.sql
+# Then run database migrations locally (local)
+npx wrangler d1 execute swiftauth-db \
+  --file=./src/schemas/schema.sql \
+  --local
+
+# Repeat, if no errors, to apply to the database in Cloudflare (remote)
+npx wrangler d1 execute swiftauth-db \
+  --file=./src/schemas/schema.sql \
+  --remote
+
+# Add yourself as allowed user in the database (local)
+USER_EMAIL="your-admin@example.com"   
+wrangler d1 execute swiftauth-db \
+  --command "INSERT INTO Sessions (SessionId, UserEmail) VALUES (\"SessionId1\", \"$USER_EMAIL\");" \
+  --local
+
+# Repeat command with --remote to apply to Cloudflare (remote)
 ```
 
 ### 5. Deploy

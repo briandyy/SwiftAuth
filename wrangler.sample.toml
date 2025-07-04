@@ -16,7 +16,7 @@ compatibility_flags = ["nodejs_compat"]
 # Note: Use secrets to store sensitive data.
 # - https://developers.cloudflare.com/workers/configuration/secrets/
 [vars]
-USER_EMAIL="user@gmail.com"
+USER_EMAIL="user@example.com"
 USER_PASSWORD="pass"
 ENCRYPTION_KEY="base64_encoded_key"
 # ENCRYPTION_KEY is a base64 encoded key from a 32 byte AES-GCM compatible key
